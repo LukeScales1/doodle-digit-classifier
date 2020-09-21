@@ -1,8 +1,10 @@
 let drawing = false;
-const doodle = {
-	x: [],
-	y: []
-}
+
+const prev = {
+	x: 0,
+	y: 0
+};
+const curr = {...prev};
 
 window.onload = () => {
 	const canvas = document.getElementById('doodle-pad');
@@ -13,45 +15,38 @@ window.onload = () => {
 
 	canvas.addEventListener('mousedown', (e) => {
 		drawing = true;
-		
-		addCoordinates(e);
+
+		updateCoordinates(e);
 	});
 
 	canvas.addEventListener('mousemove', (e) => {
 		if (drawing === true) {
-			addCoordinates(e);
-			drawDoodle();
+			updateCoordinates(e);
 		}
 	});
 
 	canvas.addEventListener('mouseup', (e) => {
 		if (drawing === true) {
-			addCoordinates(e);
-			drawDoodle();
+			updateCoordinates(e);
 			drawing = false;
 		}
 	});
 
-	addCoordinates = (e) => {
-		const xval = e.clientX - canvas.offsetLeft;
-		const yval = e.clientY - canvas.offsetTop;
+	updateCoordinates = (e) => {
+		prev.x = curr.x;
+		prev.y = curr.y;
+		curr.x = e.clientX - canvas.offsetLeft;
+		curr.y = e.clientY - canvas.offsetTop;
 
-		doodle.x.push(xval);
-		doodle.y.push(yval);
+		drawDoodle();
 	}
 
 	drawDoodle = () => {
-		for (let i = 0; i < doodle.x.length-1; i++) {
-			if (doodle.x[i+1]) {
-				console.log('drawing');
-				ctx.beginPath();
-				ctx.moveTo(doodle.x[i], doodle.y[i]);
-				ctx.lineTo(doodle.x[i+1], doodle.y[i+1]);
-				ctx.closePath();
-				ctx.stroke();
-			}
-			
-		}
+		console.log('drawing', curr, prev);
+		ctx.beginPath();
+		ctx.moveTo(prev.x, prev.y);
+		ctx.lineTo(curr.x, curr.y);
+		ctx.closePath();
+		ctx.stroke();
 	}
-
 }
