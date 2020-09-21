@@ -1,8 +1,8 @@
 let drawing = false;
 
 const prev = {
-	x: 0,
-	y: 0
+	x: null,
+	y: null
 };
 const curr = {...prev};
 
@@ -33,8 +33,8 @@ window.onload = () => {
 	});
 
 	updateCoordinates = (e) => {
-		prev.x = curr.x;
-		prev.y = curr.y;
+		prev.x = curr.x ?? e.clientX - canvas.offsetLeft;
+		prev.y = curr.y ?? e.clientY - canvas.offsetTop;
 		curr.x = e.clientX - canvas.offsetLeft;
 		curr.y = e.clientY - canvas.offsetTop;
 
