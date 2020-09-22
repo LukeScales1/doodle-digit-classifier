@@ -26,11 +26,20 @@ window.onload = () => {
 	});
 
 	canvas.addEventListener('mouseup', (e) => {
+		stopDrawing(e);
+	});
+
+	canvas.addEventListener('mouseout', (e) => {
+		stopDrawing(e);
+	});
+
+	stopDrawing = (e) => {
 		if (drawing === true) {
 			updateCoordinates(e);
 			drawing = false;
+			curr.x = curr.y = null;
 		}
-	});
+	}
 
 	updateCoordinates = (e) => {
 		prev.x = curr.x ?? e.clientX - canvas.offsetLeft;
@@ -42,7 +51,6 @@ window.onload = () => {
 	}
 
 	drawDoodle = () => {
-		console.log('drawing', curr, prev);
 		ctx.beginPath();
 		ctx.moveTo(prev.x, prev.y);
 		ctx.lineTo(curr.x, curr.y);
