@@ -6,9 +6,11 @@ const prev = {
 };
 const curr = {...prev};
 
+let ctx;
+
 window.onload = () => {
 	const canvas = document.getElementById('doodle-pad');
-	const ctx = canvas.getContext('2d');
+	ctx = canvas.getContext('2d');
 	ctx.strokeStyle = '#ffffff';
 	ctx.lineJoin = 'round';
 	ctx.lineWidth = '12';
@@ -56,5 +58,9 @@ window.onload = () => {
 		ctx.lineTo(curr.x, curr.y);
 		ctx.closePath();
 		ctx.stroke();
+	}
+
+	clearDoodle = () => {
+		ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 	}
 }
