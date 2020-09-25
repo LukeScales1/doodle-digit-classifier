@@ -30,13 +30,18 @@ print('\nTest accuracy:', test_acc)
 import time
 t = time.time()
 
-from pathlib import Path
+# from pathlib import Path
+#
+# export_path = Path('\saved_models\{}'.format(int(t)))
+import os
+# use this if developing multiple model versions, tweaking model parameters etc
+export_path = os.path.join('saved_model', '{}'.format(int(t)))
+# export_path = os.path('model')
 
-export_path = Path('\saved_models\{}'.format(int(t)))
-
-model.save(export_path, save_format='tf')
+# model.save(export_path, save_format='tf')
 
 
+tfjs.converters.save_keras_model(model, export_path)
 
 # export_path
 
