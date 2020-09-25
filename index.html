@@ -7,14 +7,16 @@
 		<meta name="description" content="Using an image classification model trained on the MNIST dataset using Keras and TensorFlow with Python, converted to tfjs, to recognise doodle digits!" />
 		<meta name="keywords" content="MNIST, doodle digit recogniser, machine learning, image classification, TensorFlow, Keras" />
 		<link rel="stylesheet" href="assets/css/main.css" />
+		<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.4.0/dist/tf.min.js"></script>
 	</head>
 	<body>
 		<h1>Doodle Digit Classifier</h1>
 		<div>
 			<canvas id="doodle-pad" width="150" height="150"></canvas>
 		</div>
-		<div>
+		<div class="btn-container">
 			<button onclick="clearDoodle()">Clear</button>
+			<button onclick="predictDoodle()">Predict</button>
 		</div>
 
 		

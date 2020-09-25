@@ -1,6 +1,6 @@
 html {
-		font-size: 18pt;
-	}
+	font-size: 18pt;
+}
 
 	@media screen and (max-width: 1920px) {
 
@@ -45,8 +45,8 @@ body {
 }
 #doodle-pad {
 	background-color: #000;
-	/*border: 5px solid pink;*/
 	border-radius: 3px; 
-/*	height: 10rem;
-	width: 10rem;*/
+}
+.btn-container {
+	display: 'inline-block';
 }
