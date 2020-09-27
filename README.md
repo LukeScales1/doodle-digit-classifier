@@ -1,3 +1,28 @@
 # doodle-digit-classifier
 
 Train a model to recognize hand-written digits using the MNIST dataset and Keras and TensorFlow, convert to a TensorFlowJS model and import it to a webpage to classify digits drawn by the user!
+
+## Model Development
+This model script is developed for Python 3.6.8. To run the `build_model.py` file it is recommended to either use a Docker container or a package manager such as Conda to ensure the correct Python version and to install dependencies.
+
+### Docker
+The following [Docker image]('https://hub.docker.com/r/evenchange4/docker-tfjs-converter') will set up a container with the correct Python version and all required dependencies:
+
+`docker pull evenchange4/docker-tfjs-converter`
+
+Running it with the following command will set the output format for the TensorFlow models:
+
+`docker run -it --rm \
+  -v "$PWD/python:/python" \
+  evenchange4/docker-tfjs-converter \
+  tensorflowjs_converter --input_format=keras python/output/model.h5 python/output/model-tfjs
+`
+
+
+### Conda
+To train the model using Conda first ensure the Python version is correct:
+`conda install python=3.6.8`
+
+then install the recquired packages, e.g:
+
+`pip install --user tensorflowjs`

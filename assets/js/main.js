@@ -63,4 +63,10 @@ window.onload = () => {
 	clearDoodle = () => {
 		ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 	}
+
+	predictDoodle = async () => {
+		const model = await tf.loadLayersModel("model/saved_model/1600990812/model.json");
+		console.log('MNIST model loaded!', model);
+
+	}
 }
