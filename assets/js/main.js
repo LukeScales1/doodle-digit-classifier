@@ -11,11 +11,11 @@ let model;
 
 window.onload = () => {
 	tf.loadLayersModel("http://localhost:8080/model/saved_model/1600990812/model.json")
-						.then(r => {
-							model = r;
-							console.log('MNIST model loaded!', r);
-							})
-						.catch(e => console.log('Error loading model', e));
+		.then(r => {
+			model = r;
+			console.log('MNIST model loaded!', r);
+			})
+		.catch(e => console.log('Error loading model', e));
 
 	const canvas = document.getElementById('doodle-pad');
 	ctx = canvas.getContext('2d');
@@ -73,7 +73,6 @@ window.onload = () => {
 	}
 
 	predictDoodle = async () => {
-		// const model = await tf.loadLayersModel("http://localhost:8080/model/saved_model/1600990812/model.json");
 		const tensor = tf.browser
 			.fromPixels(canvas)
 			.resizeNearestNeighbor([28, 28])
