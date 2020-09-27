@@ -65,7 +65,11 @@ window.onload = () => {
 	}
 
 	predictDoodle = async () => {
-		const model = await tf.loadLayersModel("model/saved_model/1600990812/model.json");
+		// const tf = require("@tensorflow/tfjs");
+		// const tfn = require("@tensorflow/tfjs-node");
+		// const handler = tfn.io.fileSystem("model/saved_model/1600990812/model.json");
+		// const model = await tf.loadModel(handler);
+		const model = await tf.loadLayersModel("http://localhost:8080/model/saved_model/1600990812/model.json");
 		console.log('MNIST model loaded!', model);
 
 	}
