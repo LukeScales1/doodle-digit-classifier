@@ -47,6 +47,21 @@ body {
 	background-color: #000;
 	border-radius: 3px; 
 }
+.container {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-template-rows: 1fr 1fr;
+}
 .btn-container {
-	display: 'inline-block';
+	padding: 0 0.2em;
+	display: inline-block;
+}
+.btn-container button + button {
+	margin-left: 2.4em;
+}
+#results-box {
+	text-align: center;
+}
+.hide {
+	display: none;
 }

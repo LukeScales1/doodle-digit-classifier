@@ -11,15 +11,20 @@
 	</head>
 	<body>
 		<h1>Doodle Digit Classifier</h1>
-		<div>
-			<canvas id="doodle-pad" width="150" height="150"></canvas>
-		</div>
-		<div class="btn-container">
-			<button onclick="clearDoodle()">Clear</button>
-			<button onclick="predictDoodle()">Predict</button>
+		<div class="container">
+			<div class="pad-and-controls">
+				<canvas id="doodle-pad" width="150" height="150"></canvas>
+			<div class="btn-container">
+				<button onclick="clearDoodle()">Clear</button>
+				<button onclick="predictDoodle()">Predict</button>
+			</div>
+			</div>
+			<div id="results-box" class="hide">
+				<h4>The classifier predicts this to be the number...</h4>
+				<h2 id="result">1</h2>
+			</div>
 		</div>
 
-		
 		<script src="assets/js/main.js"></script>
 	</body>
 </html>

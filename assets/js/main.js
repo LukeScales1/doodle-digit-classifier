@@ -24,8 +24,11 @@ window.onload = () => {
 	ctx.lineJoin = 'round';
 	ctx.lineWidth = '12';
 
+	const resultBox = document.getElementById('results-box');
+	const result = document.getElementById('result');
+
 	canvas.addEventListener('mousedown', (e) => {
-		if (newDoodle) clearDoodle();
+		// if (newDoodle) clearDoodle();
 		drawing = true;
 
 		updateCoordinates(e);
@@ -72,6 +75,8 @@ window.onload = () => {
 
 	clearDoodle = () => {
 		ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+		hideResults();
+		newDoodle = false;
 	}
 
 	predictDoodle = async () => {
@@ -85,8 +90,17 @@ window.onload = () => {
 			.div(255.0);
 
 		const predictions = await model.predict(tensor).data();
-		console.log('predictions', predictions);
 		newDoodle = true;
+		const bestGuess = await tf.argMax(predictions).data();
+		showResults(bestGuess[0]);
+	}
 
+	showResults = (x) => {
+		result.textContent = x;
+		resultBox.classList.remove('hide');
+	}
+
+	hideResults = () => {
+		resultBox.classList.add('hide');
 	}
 }
