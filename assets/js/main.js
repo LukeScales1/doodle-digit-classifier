@@ -8,6 +8,7 @@ const curr = {...prev};
 
 let ctx;
 let model;
+let newDoodle = false;
 
 window.onload = () => {
 	tf.loadLayersModel("http://localhost:8080/model/saved_model/1600990812/model.json")
@@ -24,6 +25,7 @@ window.onload = () => {
 	ctx.lineWidth = '12';
 
 	canvas.addEventListener('mousedown', (e) => {
+		if (newDoodle) clearDoodle();
 		drawing = true;
 
 		updateCoordinates(e);
@@ -84,6 +86,7 @@ window.onload = () => {
 
 		const predictions = await model.predict(tensor).data();
 		console.log('predictions', predictions);
+		newDoodle = true;
 
 	}
 }
