@@ -7,8 +7,16 @@ const prev = {
 const curr = {...prev};
 
 let ctx;
+let model;
 
 window.onload = () => {
+	tf.loadLayersModel("http://localhost:8080/model/saved_model/1600990812/model.json")
+						.then(r => {
+							model = r;
+							console.log('MNIST model loaded!', r);
+							})
+						.catch(e => console.log('Error loading model', e));
+
 	const canvas = document.getElementById('doodle-pad');
 	ctx = canvas.getContext('2d');
 	ctx.strokeStyle = '#ffffff';
@@ -65,12 +73,18 @@ window.onload = () => {
 	}
 
 	predictDoodle = async () => {
-		// const tf = require("@tensorflow/tfjs");
-		// const tfn = require("@tensorflow/tfjs-node");
-		// const handler = tfn.io.fileSystem("model/saved_model/1600990812/model.json");
-		// const model = await tf.loadModel(handler);
-		const model = await tf.loadLayersModel("http://localhost:8080/model/saved_model/1600990812/model.json");
-		console.log('MNIST model loaded!', model);
+		// const model = await tf.loadLayersModel("http://localhost:8080/model/saved_model/1600990812/model.json");
+		const tensor = tf.browser
+			.fromPixels(canvas)
+			.resizeNearestNeighbor([28, 28])
+			.mean(2)
+			.expandDims(2)
+			.expandDims()
+			.toFloat()
+			.div(255.0);
+
+		const predictions = await model.predict(tensor).data();
+		console.log('predictions', predictions);
 
 	}
 }
