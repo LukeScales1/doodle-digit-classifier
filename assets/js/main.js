@@ -16,7 +16,7 @@ let graph;
 let graphBox;
 
 window.onload = () => {
-	tf.loadLayersModel("http://localhost:8080/model/saved_model/1600990812/model.json")
+	tf.loadLayersModel("http://localhost:8080/model/saved_model/tfjs/1601348285/model.json")
 		.then(r => {
 			model = r;
 			console.log('MNIST model loaded!', r);
@@ -126,7 +126,7 @@ makeGraph = (data) => {
 			labels: labels,
 			datasets: [
 			{
-				label: "Model's Predictions",
+				label: "Model Predictions (%)",
 				backgroundColor: '#f50057',
 				borderColor: 'rgb(255, 99, 132)',
 				data: data,

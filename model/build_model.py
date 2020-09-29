@@ -1,3 +1,5 @@
+import os
+import time
 
 from tensorflow import keras
 import tensorflowjs as tfjs
@@ -17,78 +19,42 @@ model = keras.Sequential([
     keras.layers.Dense(10, activation='softmax')
 ])
 
+num_epochs = 100
+LEARNING_RATE = 1e-3
+DECAY = LEARNING_RATE / num_epochs
+
+opt = keras.optimizers.Adam(lr=LEARNING_RATE, decay=DECAY)
+
 model.compile(optimizer='adam',
               loss='sparse_categorical_crossentropy',
-              metrics=['accuracy'])
+              metrics=['accuracy', 'mse'])
 
-model.fit(train_images, train_labels, epochs=10)
+t = time.time()
+export_path = os.path.join('saved_model','hdf5', '{}'.format(int(t)))
 
-test_loss, test_acc = model.evaluate(test_images,  test_labels, verbose=2)
+checkpoint = keras.callbacks.ModelCheckpoint(export_path,
+                          monitor='loss',
+                          verbose=1,
+                          save_best_only=True,
+                          mode='auto')
+
+
+H = model.fit(train_images, train_labels,
+    epochs=num_epochs,
+    shuffle=False,
+    batch_size=32,
+    use_multiprocessing=True,
+    workers=8,
+    callbacks=[
+        checkpoint
+        ]
+)
+
+test_loss, test_acc, test_mse = model.evaluate(test_images,  test_labels, verbose=2)
 
 print('\nTest accuracy:', test_acc)
 
-import time
-t = time.time()
+checkpointed_model = keras.models.load_model(export_path)
 
-# from pathlib import Path
-#
-# export_path = Path('\saved_models\{}'.format(int(t)))
-import os
-# use this if developing multiple model versions, tweaking model parameters etc
-export_path = os.path.join('saved_model', '{}'.format(int(t)))
-# export_path = os.path('model')
-
-# model.save(export_path, save_format='tf')
-
-
-tfjs.converters.save_keras_model(model, export_path)
-
-# export_path
-
-#
-# pip install tensorflowjs
-#
-#
-#
-# get_ipython().system('tensorflowjs_converter     --input_format=keras_saved_model     /tmp/saved_models/1576816463     /tmp/my_tfjs_model')
-#
-#
-#
-# tensorflowjs_converter     --input_format=keras_saved_model     /tmp/saved_models/1576816463     /tmp/my_tfjs_model
-#
-#
-#
-# cd "mnist_model/"
-#
-#
-# ls
-#
-#
-# cd "assets/"
-#
-#
-# ls
-#
-#
-#
-# ls .*
-#
-#
-#
-# reloaded = tf.keras.models.load_model(export_path)
-#
-#
-#
-# result_batch = model.predict(img)
-# reloaded_result_batch = reloaded.predict(img)
-#
-#
-# abs(reloaded_result_batch - result_batch).max()
-#
-#
-#
-# get_ipython().system('tar cvfz zipname.tar.gz *')
-#
-
-
-
+export_path_js = os.path.join('saved_model', 'tfjs', '{}'.format(int(t)))
+tfjs.converters.save_keras_model(checkpointed_model, export_path_js)
