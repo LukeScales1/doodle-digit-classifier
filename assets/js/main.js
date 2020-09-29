@@ -55,7 +55,7 @@ window.onload = () => {
 	});
 }
 
-stopDrawing = (e) => {
+const stopDrawing = (e) => {
 	if (drawing === true) {
 		updateCoordinates(e);
 		drawing = false;
@@ -63,7 +63,7 @@ stopDrawing = (e) => {
 	}
 }
 
-updateCoordinates = (e) => {
+const updateCoordinates = (e) => {
 	prev.x = curr.x ?? e.clientX - canvas.offsetLeft;
 	prev.y = curr.y ?? e.clientY - canvas.offsetTop;
 	curr.x = e.clientX - canvas.offsetLeft;
@@ -72,7 +72,7 @@ updateCoordinates = (e) => {
 	drawDoodle();
 }
 
-drawDoodle = () => {
+const drawDoodle = () => {
 	ctx.beginPath();
 	ctx.moveTo(prev.x, prev.y);
 	ctx.lineTo(curr.x, curr.y);
@@ -80,13 +80,13 @@ drawDoodle = () => {
 	ctx.stroke();
 }
 
-clearDoodle = () => {
+const clearDoodle = () => {
 	ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 	hideResults();
 	newDoodle = false;
 }
 
-predictDoodle = async () => {
+const predictDoodle = async () => {
 	const tensor = tf.browser
 		.fromPixels(canvas)
 		.resizeNearestNeighbor([28, 28])
@@ -97,27 +97,27 @@ predictDoodle = async () => {
 		.div(255.0);
 
 	const predictions = await model.predict(tensor).data();
-	newDoodle = true;
 	const bestGuess = await tf.argMax(predictions).data();
 	showResults(bestGuess[0]);
 	const resultArray = Array.from(predictions);
 	makeGraph(resultArray);
-
+	newDoodle = true;
 }
 
-showResults = (x) => {
+const showResults = (x) => {
 	result.textContent = x;
 	resultBox.classList.remove('hide');
 	graphBox.classList.remove('hide');
 }
 
-hideResults = () => {
+const hideResults = () => {
 	resultBox.classList.add('hide');
 	graphBox.classList.add('hide');
 	graph.destroy();
 }
 
-makeGraph = (data) => {
+const makeGraph = (data) => {
+	if (newDoodle) graph.destroy();
 	const labels = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 	const context = graphBox.getContext('2d');
 	graph = new Chart(context, {
