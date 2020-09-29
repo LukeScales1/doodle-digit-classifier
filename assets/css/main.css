@@ -2,38 +2,6 @@ html {
 	font-size: 18pt;
 }
 
-	@media screen and (max-width: 1920px) {
-
-		html {
-			font-size: 16pt;
-		}
-
-	}
-
-	@media screen and (max-width: 1152px) {
-
-		html {
-			font-size: 14pt;
-		}
-
-	}
-
-	@media screen and (max-width: 736px) {
-
-		html {
-			font-size: 12pt;
-		}
-
-	}
-
-	@media screen and (max-width: 480px) {
-
-		html {
-			font-size: 11pt;
-		}
-
-	}
-
 body {
 	background-color: #bbfaeb;
 	color: #000000;
@@ -80,4 +48,46 @@ body {
 #result-graph {
 	margin-top: 1em; 
 	background-color: #fff;
+	/*max-height: 65vh;*/
+	/*max-width: 90vw*/
 }
+
+	@media screen and (max-width: 1920px) {
+
+		html {
+			font-size: 16pt;
+		}
+
+		.container {
+			grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+		}
+
+	}
+
+	@media screen and (max-width: 1152px) {
+
+		html {
+			font-size: 14pt;
+		}
+
+		.container {
+			grid-template-columns: 1fr 1fr 1fr;
+		}
+
+	}
+
+	@media screen and (max-width: 736px) {
+
+		html {
+			font-size: 12pt;
+		}
+
+	}
+
+	@media screen and (max-width: 480px) {
+
+		html {
+			font-size: 11pt;
+		}
+
+	}
