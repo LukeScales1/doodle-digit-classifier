@@ -1,0 +1,23 @@
+{
+  "name": "doodle-digit-classifier",
+  "version": "1.0.0",
+  "description": "Train a model to recognize hand-written digits using the MNIST dataset and Keras and TensorFlow, convert to a TensorFlowJS model and import it to a webpage to classify digits drawn by the user!",
+  "main": "index.js",
+  "scripts": {
+    "start": "http-server -c-1 -p 8080"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LukeScales1/doodle-digit-classifier.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LukeScales1/doodle-digit-classifier/issues"
+  },
+  "homepage": "https://github.com/LukeScales1/doodle-digit-classifier#readme",
+  "dependencies": {
+    "http-server": "^0.12.3"
+  }
+}

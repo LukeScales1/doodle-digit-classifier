@@ -5,11 +5,16 @@ Train a model to recognize hand-written digits using the MNIST dataset and Keras
 ## Deployment
 To run this app locally you could set up a node server to host the tfjs model files (as the TensorFlow `loadLayersModel` function expects to retrieve a model over http request). I opted to use the npm module [http-server]('https://www.npmjs.com/package/http-server') for simplicity.
 
-Steps:
+Steps using npm:
+1. Clone the directory and run `npm install`
+2. Run `npm start`.
+3. Open the `index.html` file using your favourite browser and have fun!
+
+Steps to set up manually:
 1. Clone the directory and install http-server using:
 `npm install http-server -g`
 2. Navigate to the project directory on your command line/terminal and deploy the server using:
-`http-server -c1 --cors .`
+`http-server -c1 --cors .` or `http-server -c-1 -p 8080`
 3. Open the `index.html` file using your favourite browser and voila!
 
 ## Model Development
